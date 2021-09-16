@@ -35,7 +35,7 @@ socket.on("message", (chat) => {
   const html = chat
     .map((mensaje) => {
       return `<div>
-                 <div class="">${mensaje.createdAt} ${mensaje.email} dice: </div>
+                 <div class="">${mensaje.createdAt} ${mensaje.mail} dice: </div>
                  <div class="">${mensaje.mensaje}</div>
                  <div class="">---------------------- </div>
                  <div class="">---------------------- </div>
@@ -53,7 +53,7 @@ chatForm.addEventListener("submit", (e) => {
 
   // Get message text
   let chat = {
-    email: e.target.elements.email.value,
+    mail: e.target.elements.mail.value,
     mensaje: e.target.elements.msg.value,
   };
 
@@ -67,7 +67,7 @@ chatForm.addEventListener("submit", (e) => {
 
   // borrar el input
   e.target.elements.msg.value = "";
-  e.target.elements.email.value = "";
+  e.target.elements.mail.value = "";
   e.target.elements.msg.focus();
 });
 

@@ -5,14 +5,14 @@ import handlebars from 'express-handlebars';
 import * as http from 'http';
 import io from 'socket.io';
 import routerRead from './routes/rutas';
-import { DBService } from './services/db';
+import { dbConnection } from './services/mensajesDB';
+import { connect } from 'http2';
 
 
 const app = express();
 const puerto = 8080;
 const server = http.Server(app)
-//DBService.init();
-
+dbConnection.init();
 
 server.listen(puerto, () =>
   console.log('Server up en puerto', puerto)
@@ -50,8 +50,9 @@ const guardarNewMessage = (data) => {
   //console.log(data);
   let now = new Date();
   let date = moment(now).format("DD/MM/YYYY HH:MM:SS");
-  const newMessage = { email: data.email, createdAt: date, mensaje: data.mensaje };
-  DBService.create(newMessage);
+  const newMessage = { mail: data.mail, createdAt: date, mensaje: data.mensaje };
+  console.log(newMessage)
+  dbConnection.create(newMessage);
 };
 
 const productos = [];
@@ -71,7 +72,7 @@ myWSServer.on('connection', (socket) => {
 
   socket.on('askData', (data) => {
     //const chatfile = DBService.get();
-    DBService.get().then(chatfile => {
+    dbConnection.get().then(chatfile => {
       socket.emit('messages', productos);
       socket.emit('message', chatfile);
     });
@@ -81,7 +82,7 @@ myWSServer.on('connection', (socket) => {
 
   socket.on("chatMessage", (chat) => {
     guardarNewMessage(chat);
-    DBService.get().then(chatfile => {
+    dbConnection.get().then(chatfile => {
       //console.log(chatfile)
       socket.emit('message', chatfile);
       //socket.broadcast.emit("message", chatfile);

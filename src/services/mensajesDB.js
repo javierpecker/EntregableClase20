@@ -2,9 +2,10 @@ import mongoose from 'mongoose'
 
 
 const schemaMensaje = new mongoose.Schema({
-    mensaje: { type: String, required: true },
-    createat: { type: Date },
-    mail: { type: String, required: true }
+    
+    createdAt: { type: String ,required: true},
+    mail: { type: String, required: true },
+    mensaje: { type: String, required: true }
   });
 
 const URL = 'mmongodb://localhost:27017/ecommerce';

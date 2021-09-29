@@ -5,8 +5,7 @@ import handlebars from 'express-handlebars';
 import * as http from 'http';
 import io from 'socket.io';
 import routerRead from './routes/rutas';
-import { dbConnection } from './services/mensajesDB';
-import { connect } from 'http2';
+import { dbConnection } from './models/mensajesDB';
 
 
 const app = express();
@@ -47,7 +46,6 @@ app.use('/api', routerRead);
 
 
 const guardarNewMessage = (data) => {
-  //console.log(data);
   let now = new Date();
   let date = moment(now).format("DD/MM/YYYY HH:MM:SS");
   const newMessage = { mail: data.mail, createdAt: date, mensaje: data.mensaje };

@@ -1,5 +1,5 @@
 import express from 'express';
-import Producto from '../productos';
+import Producto from '../api/productos';
 
 /**
  * DATOS A MANIPULAR
@@ -82,12 +82,13 @@ router.delete('/productos/borrar/:id', (req, res) => {
     });
   });  
 
-router.get('/productos/vista', (request, response) => {
+router.get('/productos/vista-test/:cant?', (req, res) => {
+  const cant = req.query.cant ? Number(req.query.cant) : 10;
+  console.log('id: ',Number(cant))
   const datosDinamicos = { 
-    productos: miProducto2.readlist()
+    productos: miProducto2.fakeData(cant)
   }
-  console.log(datosDinamicos)
-  response.render('main', datosDinamicos);
+  res.render('main', datosDinamicos);
 });   
 
 export default router;

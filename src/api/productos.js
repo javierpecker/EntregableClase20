@@ -1,6 +1,9 @@
+import faker from 'faker'
+
 class Producto {
     constructor() {
       this.productos = [];
+      this.dataFake = [];
     }
 
     readbyid(id) {
@@ -70,6 +73,19 @@ class Producto {
       this.productos.splice(indice, 1);
       return this.productos
     }
+
+    fakeData(cant) {
+      this.dataFake = [];
+      for(let i =0; i<cant; i++){
+        this.dataFake.push({
+            title: faker.commerce.product(),
+            price: faker.commerce.price(),
+            thumbnail: faker.image.avatar(),
+        })
+    }
+    return this.dataFake;
+    }
+
   }
   
   export default Producto;
